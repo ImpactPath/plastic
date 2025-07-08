@@ -3,404 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plastic AI Knowledge Playground - Search</title>
+    <title>Plastic AI Knowledge Playground</title>
     <style>
         /* Google Fonts: Inter */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 
         /* --- Basic Styles --- */
-        body {
+        body, html {
             font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
             margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* --- Hero Section Layout --- */
+        .hero-section {
             display: flex;
-            justify-content: center;
-            padding: 20px;
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 20vh 20px 0 20px; 
+            box-sizing: border-box;
+            position: relative;
+            background-color: #f8f9fa;
+        }
+        
+        /* --- Background Visual --- */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
         }
 
-        /* --- Main Layout --- */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            gap: 30px;
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
         }
 
-        .main-content {
-            flex-grow: 1;
+        /* --- Headline Container --- */
+        .headline-container {
+            margin-bottom: 20px;
         }
 
-        .sidebar {
-            width: 320px;
-            flex-shrink: 0;
-        }
-
-        /* --- Common Card Style --- */
-        .card {
-            background-color: #ffffff;
-            border: 1px solid #dee2e6;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        /* --- Header --- */
-        .system-header {
-            margin-bottom: 25px;
-        }
-
-        /* MODIFIED: Applied Grok/Perplexity style from landing page */
+        /* MODIFIED: Grok/Perplexity Style Headline */
         .headline {
-            font-size: 32px; /* Adjusted size for screen 1 */
+            font-size: 56px;
             font-weight: 800;
             line-height: 1.2;
             margin: 0;
+            /* MODIFIED: Adjusted gradient to ensure magenta is prominent */
             background: linear-gradient(90deg, #0d6efd, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 200%;
+            /* MODIFIED: Adjusted glow effect to include magenta */
             text-shadow: 0 0 30px rgba(13, 110, 253, 0.25), 0 0 40px rgba(236, 72, 153, 0.25);
+            /* Animation for the gradient shift */
             animation: gradient-animation 10s ease infinite;
-            text-align: left; /* Align to the left */
         }
 
-        .headline a {
-            text-decoration: none;
-        }
-        
+        /* Animation Keyframes */
         @keyframes gradient-animation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-
-        /* --- Search Box --- */
-        .search-box {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-sizing: border-box;
+        .sub-headline {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
-        .search-box:focus {
+
+        /* --- Search Bar --- */
+        .search-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .main-search-bar {
+            width: 100%;
+            padding: 20px 60px 20px 25px;
+            font-size: 18px;
+            border: 1px solid #ced4da;
+            border-radius: 12px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        .main-search-bar:focus {
             outline: none;
             border-color: #0d6efd;
-            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
         }
 
-        /* --- Search Results --- */
-        .results-header {
-            font-size: 18px;
-            font-weight: 700;
-            color: #495057;
-            margin-bottom: 20px;
-        }
-
-        .result-card {
-            background-color: #ffffff;
-            border-top: 1px solid #dee2e6;
-            border-right: 1px solid #dee2e6;
-            border-bottom: 1px solid #dee2e6;
-            border-left: 4px solid #17a2b8;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .result-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        
-        .doc-type {
-            background-color: #e7f5ff;
-            color: #1c7ed6;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        
-        .card-title a {
-            text-decoration: none;
-            color: #212529;
-            font-size: 19px;
-            font-weight: 700;
-        }
-        .card-title a:hover {
-            color: #0d6efd;
-        }
-        
-        .metadata {
-            font-size: 14px;
-            color: #6c757d;
-            margin-bottom: 15px;
-        }
-        .metadata .author {
-            font-weight: 500;
-        }
-        
-        .summary {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #495057;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-        }
-        
-        .keywords .keyword {
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            display: inline-block;
-            margin: 2px;
-        }
-
-        /* --- Sidebar (Chatbot Area) --- */
-        .sidebar-card {
-            position: sticky;
-            top: 20px;
-        }
-        .sidebar-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #343a40;
-            margin-bottom: 15px;
-        }
-        .chat-info {
-            font-size: 14px;
-            color: #6c757d;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            background-color: #f1f3f5;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .chat-button {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            color: #fff;
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             background-color: #0d6efd;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
             text-decoration: none;
         }
-        .chat-button:hover {
-            transform: translateY(-2px);
-            background-color: #0b5ed7;
-            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+        .search-button .icon {
+            width: 24px;
+            height: 24px;
+            color: #ffffff;
         }
-        .chat-button .icon {
-            width: 20px;
-            height: 20px;
+        
+        /* --- Trending Searches --- */
+        .trending-searches {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: #6c757d;
         }
 
+        .trending-searches strong {
+            font-weight: 500;
+        }
+        
+        .trending-tag {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .trending-tag:hover {
+            background-color: #d0d4d7;
+            color: #212529;
+        }
+        
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Main Content (Search Results) -->
-        <main class="main-content">
-            <header class="system-header">
-                <!-- MODIFIED: Removed icon and applied new style to h1 -->
-                <h1 class="headline"><a href="https://impactpath.github.io/plastic/index.html">Plastic AI Knowledge Playground</a></h1>
-            </header>
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="headline-container">
+                <h1 class="headline">Plastic AI Knowledge Playground</h1>
+            </div>
             
-            <input type="text" class="search-box" value="microplastic pollution" placeholder="Enter a search term...">
+            <p class="sub-headline">
+                Search, analyze, and ask questions across hundreds of expert reports and research papers. Stop wasting time on manual insights hunting.
+            </p>
 
-            <section class="results-container">
-                <h2 class="results-header">Search results for 'microplastic pollution' (9)</h2>
-
-                <!-- Result Card 1 -->
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Report</span>
-                        <h3 class="card-title"><a href="https://impactpath.github.io/plastic/screen2.html">Global Plastics Outlook: Policy Scenarios to 2060</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">OECD Environment Directorate</span> | <span class="year">2022</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This OECD report provides a long-term outlook on plastics production, use, and environmental leakage. It quantitatively analyzes the effects of ambitious global policy scenarios to reduce plastic leakage to near zero by 2060.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#Plastics</span> <span class="keyword">#Policy</span> <span class="keyword">#OECD</span> <span class="keyword">#WasteManagement</span>
-                    </div>
-                </article>
-
-                <!-- Other result cards... -->
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Journal</span>
-                        <h3 class="card-title"><a href="#">Production, use, and fate of all plastics ever made</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">Geyer, R., Jambeck, J. R., & Law, K. L.</span> | <span class="year">2017</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This foundational study, published in Science Advances, presents the first global analysis of the production, use, and fate of all plastics ever made, tracking their lifecycle into different waste streams.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#Lifecycle</span> <span class="keyword">#PlasticWaste</span> <span class="keyword">#ScienceAdvances</span> <span class="keyword">#MassBalance</span>
-                    </div>
-                </article>
-
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Report</span>
-                        <h3 class="card-title"><a href="#">Breaking the Plastic Wave: A Comprehensive Assessment</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">The Pew Charitable Trusts & SYSTEMIQ</span> | <span class="year">2020</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This comprehensive assessment presents a systemic approach to reduce ocean plastic pollution by over 80% by 2040. It analyzes the effects and costs of various interventions, emphasizing an integrated approach.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#OceanPollution</span> <span class="keyword">#CircularEconomy</span> <span class="keyword">#SystemChange</span>
-                    </div>
-                </article>
-
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Report</span>
-                        <h3 class="card-title"><a href="#">Single-Use Plastics: A Roadmap for Sustainability</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">United Nations Environment Programme (UNEP)</span> | <span class="year">2018</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This UNEP report outlines a roadmap for governments and businesses to tackle the single-use plastic problem, providing a global overview and case studies of successful policy interventions.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#UNEP</span> <span class="keyword">#SingleUsePlastics</span> <span class="keyword">#Sustainability</span>
-                    </div>
-                </article>
-
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Journal</span>
-                        <h3 class="card-title"><a href="#">The plastic cycle</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">Stubbins, A., Law, K. L., et al.</span> | <span class="year">2021</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> Published in Nature Reviews Earth & Environment, this article conceptualizes the 'plastic cycle' as analogous to biogeochemical cycles, detailing its movement and transformation through the Earth system.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#PlasticCycle</span> <span class="keyword">#EarthSystem</span> <span class="keyword">#NatureReviews</span>
-                    </div>
-                </article>
-
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Report</span>
-                        <h3 class="card-title"><a href="#">The New Plastics Economy: Rethinking the future of plastics</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">Ellen MacArthur Foundation</span> | <span class="year">2016</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> A foundational report from the Ellen MacArthur Foundation that introduces the vision of a circular economy for plastics, where they never become waste, outlining a new system-level approach.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#NewPlasticsEconomy</span> <span class="keyword">#CircularEconomy</span> <span class="keyword">#EMF</span>
-                    </div>
-                </article>
-                
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Journal</span>
-                        <h3 class="card-title"><a href="#">Atmospheric transport and deposition of microplastics</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">Allen, S., Allen, D., et al.</span> | <span class="year">2019</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> A study in Nature Geoscience revealing that microplastics travel long distances through the atmosphere and are deposited in remote, pristine environments like the Pyrenees mountains.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#Microplastics</span> <span class="keyword">#AtmosphericTransport</span> <span class="keyword">#NatureGeoscience</span>
-                    </div>
-                </article>
-                
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Report</span>
-                        <h3 class="card-title"><a href="#">What a Waste 2.0: A Global Snapshot of Solid Waste</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">World Bank Group</span> | <span class="year">2018</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This report provides extensive data and projections on plastic waste generation globally, highlighting its growing challenge, particularly in developing countries, as part of a broader look at solid waste.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#WorldBank</span> <span class="keyword">#SolidWaste</span> <span class="keyword">#Data</span>
-                    </div>
-                </article>
-                
-                <article class="result-card">
-                    <div class="card-header">
-                        <span class="doc-type">Journal</span>
-                        <h3 class="card-title"><a href="#">Chemical recycling of plastics to monomer: a review</a></h3>
-                    </div>
-                    <p class="metadata">
-                        <span class="author">Vollmer, I., Jenks, M.J.F., et al.</span> | <span class="year">2020</span>
-                    </p>
-                    <p class="summary">
-                        <b>[AI Summary]</b> This review in Green Chemistry covers the state-of-the-art technologies for the chemical recycling of plastics, breaking them down into their monomeric building blocks for a closed-loop system.
-                    </p>
-                    <div class="keywords">
-                        <span class="keyword">#ChemicalRecycling</span> <span class="keyword">#Monomer</span> <span class="keyword">#GreenChemistry</span>
-                    </div>
-                </article>
-
-            </section>
-        </main>
-
-        <!-- Sidebar (Chatbot Function) -->
-        <aside class="sidebar">
-            <div class="card sidebar-card">
-                <h3>Ask about these results</h3>
-                <p class="chat-info">
-                    Based on the 9 search results,<br>you can ask more in-depth questions.
-                </p>
-                <a href="https://impactpath.github.io/plastic/screen3.html" target="_blank" rel="noopener noreferrer" class="chat-button">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+            <div class="search-container">
+                <input type="text" class="main-search-bar" placeholder="Ask anything about plastic actions">
+                <a href="https://impactpath.github.io/plastic/screen1.html" class="search-button" aria-label="Search">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                     </svg>
-                    <span>Start Chat with AI</span>
                 </a>
             </div>
-        </aside>
+
+            <div class="trending-searches">
+                <strong>Trending:</strong>
+                <a href="#" class="trending-tag">Bioplastics from Algae</a>
+                <a href="#" class="trending-tag">EPR Policy in Southeast Asia</a>
+                <a href="#" class="trending-tag">Microplastics in Bottled Water</a>
+            </div>
+        </div>
     </div>
 
 </body>
