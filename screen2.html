@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic AI Knowledge System - Document Analysis</title>
+    <style>
+        /* Google Fonts: Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        /* --- Basic Styles --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+        }
+
+        .sidebar {
+            width: 350px; /* Slightly wider for chat */
+            flex-shrink: 0;
+        }
+
+        /* --- Common Card Style --- */
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Back to Search Link --- */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #0d6efd;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .back-link .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* --- AI Analysis Panel --- */
+        .analysis-panel .doc-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0d6efd;
+            margin-bottom: 8px;
+        }
+        .analysis-panel .doc-metadata {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        
+        .analysis-section {
+            margin-bottom: 30px;
+        }
+        .analysis-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #17a2b8;
+            padding-bottom: 8px;
+        }
+        .analysis-section p, .analysis-section ul {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #495057;
+        }
+        .analysis-section ul {
+            padding-left: 20px;
+        }
+        .analysis-section li {
+            margin-bottom: 10px;
+        }
+
+        /* --- Related Documents --- */
+        .related-doc-card {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            margin-bottom: 10px;
+        }
+        .related-doc-card:last-child {
+            margin-bottom: 0;
+        }
+        .related-doc-card:hover {
+            background-color: #f8f9fa;
+        }
+        .related-doc-card .icon {
+            width: 24px;
+            height: 24px;
+            color: #0d6efd;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .related-doc-card h4 a {
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #212529;
+        }
+        .related-doc-card h4 a:hover {
+            text-decoration: underline;
+        }
+        .related-doc-card p {
+            font-size: 14px;
+            color: #6c757d;
+            margin: 4px 0 0 0;
+        }
+
+        /* --- Sidebar (Chatbot Area) --- */
+        .sidebar-card {
+            position: sticky;
+            top: 20px;
+        }
+        .sidebar-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+        /* MODIFIED: Removed the gray box style */
+        .chat-history {
+            height: 300px;
+            margin-bottom: 15px;
+            overflow-y: auto;
+            /* Placeholder text for chat content */
+            color: #6c757d;
+            font-style: italic;
+        }
+        .chat-input-area {
+            position: relative;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 12px 40px 12px 12px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .chat-send-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #0d6efd;
+        }
+        .chat-send-btn .icon {
+            width: 24px;
+            height: 24px;
+        }
+        .suggested-questions {
+            margin-top: 15px;
+        }
+        .suggested-q {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            margin: 4px;
+        }
+        .suggested-q:hover {
+            background-color: #d0d4d7;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Main Content (AI Analysis Panel) -->
+        <main class="main-content">
+            <a href="#" class="back-link">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+                <span>Back to Search Results</span>
+            </a>
+
+            <div class="card analysis-panel">
+                <h2 class="doc-title">Global Plastics Outlook: Policy Scenarios to 2060</h2>
+                <p class="doc-metadata">By OECD Environment Directorate | Published: 2022</p>
+
+                <section class="analysis-section">
+                    <h3>Key Findings</h3>
+                    <ul>
+                        <li>Without new policies, global plastic consumption is projected to nearly triple from 460 Mt in 2019 to 1,231 Mt in 2060.</li>
+                        <li>Plastic leakage to the environment is projected to double to 44 Mt a year, while the stock of plastics in rivers and oceans will more than triple.</li>
+                        <li>Most plastic pollution comes from macroplastics, but microplastic leakage from pellets, textiles, and tyres is also a serious concern.</li>
+                    </ul>
+                </section>
+                
+                <section class="analysis-section">
+                    <h3>Methodology</h3>
+                    <p>The analysis is based on the OECD's ENV-Linkages model, a dynamic global economic model that links economic activity to environmental pressures, including plastic production, consumption, and waste generation.</p>
+                </section>
+
+                <section class="analysis-section">
+                    <h3>Policy Implications</h3>
+                    <p>The report outlines a multi-pronged policy approach to create a circular economy for plastics and significantly reduce environmental leakage. Key policy levers include:</p>
+                    <ul>
+                        <li><strong>Market-based instruments:</strong> Implementing taxes on single-use plastics and virgin plastic production, while providing subsidies for secondary (recycled) materials to close the price gap.</li>
+                        <li><strong>Regulatory measures:</strong> Mandating minimum recycled content in new products, phasing out problematic polymers and additives, and setting ambitious, binding recycling targets.</li>
+                        <li><strong>Extended Producer Responsibility (EPR):</strong> Designing and enforcing comprehensive EPR schemes that make producers financially responsible for the entire lifecycle of their products.</li>
+                        <li><strong>Investment in infrastructure:</strong> Scaling up investment in collection, sorting, and advanced recycling technologies, particularly in developing economies.</li>
+                    </ul>
+                </section>
+
+                <section class="analysis-section">
+                    <h3>Related Documents</h3>
+                    <div class="related-doc-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                        <div>
+                            <h4><a href="#">Breaking the Plastic Wave: A Comprehensive Assessment</a></h4>
+                            <p>The Pew Charitable Trusts & SYSTEMIQ (2020)</p>
+                        </div>
+                    </div>
+                    <div class="related-doc-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                        <div>
+                            <h4><a href="#">The New Plastics Economy: Rethinking the future of plastics</a></h4>
+                            <p>Ellen MacArthur Foundation (2016)</p>
+                        </div>
+                    </div>
+                    <div class="related-doc-card">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                        <div>
+                            <h4><a href="#">Production, use, and fate of all plastics ever made</a></h4>
+                            <p>Geyer, R., Jambeck, J. R., & Law, K. L. (2017)</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Sidebar (Chatbot Function) -->
+        <aside class="sidebar">
+            <div class="card sidebar-card">
+                <h3>Ask about this document</h3>
+                <div class="chat-history">
+                    Chat history will appear here...
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" placeholder="Ask a follow-up question...">
+                    <button class="chat-send-btn">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    </button>
+                </div>
+                <div class="suggested-questions">
+                    <button class="suggested-q">Summarize Key Findings</button>
+                    <button class="suggested-q">What are the main policy recommendations?</button>
+                    <button class="suggested-q">Explain the methodology</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+</body>
+</html>
