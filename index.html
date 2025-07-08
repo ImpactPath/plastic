@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- MODIFIED: Added viewport meta tag for responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plastic AI Knowledge Playground</title>
     <style>
@@ -13,7 +14,7 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* --- Hero Section Layout --- */
@@ -23,8 +24,8 @@
             justify-content: flex-start; 
             align-items: center;
             text-align: center;
-            height: 100%;
-            padding: 20vh 20px 0 20px; 
+            min-height: 100vh; /* Ensure it takes at least full height */
+            padding: 20vh 20px 10vh 20px; 
             box-sizing: border-box;
             position: relative;
             background-color: #f8f9fa;
@@ -49,6 +50,7 @@
             position: relative;
             z-index: 2;
             max-width: 800px;
+            width: 100%;
         }
 
         /* --- Headline Container --- */
@@ -79,13 +81,12 @@
             font-size: 18px;
             color: #495057;
             margin-bottom: 40px;
-            max-width: 800px; /* MODIFIED: Adjusted max-width */
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
         }
         
-        /* MODIFIED: Added style for the line break span */
         .sub-headline-break {
             display: block;
             margin-top: 0.5em;
@@ -142,6 +143,7 @@
             justify-content: center;
             align-items: center;
             gap: 12px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
         }
 
         .trending-searches strong {
@@ -150,6 +152,8 @@
             background: linear-gradient(90deg, #0d6efd, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 10px; /* Add space when stacking */
+            width: 100%; /* Take full width on small screens */
         }
         
         .trending-tag {
@@ -176,7 +180,41 @@
         .trending-tag .icon {
             width: 16px;
             height: 16px;
-            color: #dc2626; /* Fire color */
+            color: #dc2626;
+        }
+
+        /* --- MODIFIED: Media Queries for Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 15vh;
+            }
+            .headline {
+                font-size: 42px;
+            }
+            .sub-headline {
+                font-size: 16px;
+            }
+            .main-search-bar {
+                padding: 18px 55px 18px 20px;
+                font-size: 16px;
+            }
+            .trending-searches {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .headline {
+                font-size: 36px;
+            }
+            .sub-headline {
+                font-size: 15px;
+            }
+            .trending-tag {
+                width: 90%;
+                justify-content: center;
+            }
         }
         
     </style>
