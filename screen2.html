@@ -70,10 +70,40 @@
             color: #0d6efd;
             margin-bottom: 8px;
         }
+        
+        .metadata-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
         .analysis-panel .doc-metadata {
             font-size: 16px;
             color: #6c757d;
-            margin-bottom: 30px;
+            margin: 0;
+        }
+        
+        .source-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background-color: #e9ecef;
+            color: #495057;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+        .source-link-btn:hover {
+            background-color: #d0d4d7;
+        }
+        .source-link-btn .icon {
+            width: 18px;
+            height: 18px;
         }
         
         .analysis-section {
@@ -140,7 +170,7 @@
         /* --- Sidebar (Chatbot Area) --- */
         .sidebar-card {
             position: sticky;
-            top: 20px;
+            top: 60px;
         }
         .sidebar-card h3 {
             font-size: 20px;
@@ -148,12 +178,10 @@
             color: #343a40;
             margin-bottom: 15px;
         }
-        /* MODIFIED: Removed the gray box style */
         .chat-history {
             height: 300px;
             margin-bottom: 15px;
             overflow-y: auto;
-            /* Placeholder text for chat content */
             color: #6c757d;
             font-style: italic;
         }
@@ -213,7 +241,14 @@
 
             <div class="card analysis-panel">
                 <h2 class="doc-title">Global Plastics Outlook: Policy Scenarios to 2060</h2>
-                <p class="doc-metadata">By OECD Environment Directorate | Published: 2022</p>
+                
+                <div class="metadata-container">
+                    <p class="doc-metadata">By OECD Environment Directorate | Published: 2022</p>
+                    <a href="#" class="source-link-btn">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                        <span>Source</span>
+                    </a>
+                </div>
 
                 <section class="analysis-section">
                     <h3>Key Findings</h3>
@@ -280,10 +315,11 @@
                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
                     </button>
                 </div>
+                <!-- MODIFIED: Suggested questions are now specific to the document -->
                 <div class="suggested-questions">
-                    <button class="suggested-q">Summarize Key Findings</button>
-                    <button class="suggested-q">What are the main policy recommendations?</button>
-                    <button class="suggested-q">Explain the methodology</button>
+                    <button class="suggested-q">What is the 2060 projection for leakage?</button>
+                    <button class="suggested-q">Which policies are most effective?</button>
+                    <button class="suggested-q">Explain the ENV-Linkages model</button>
                 </div>
             </div>
         </aside>
