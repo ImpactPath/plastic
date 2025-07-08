@@ -46,11 +46,26 @@
         }
 
         /* --- Header --- */
-        header h1 {
-            font-size: 26px;
-            color: #343a40;
-            margin-bottom: 20px;
+        .system-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
         }
+
+        .system-header .icon {
+            width: 40px;
+            height: 40px;
+            color: #0d6efd;
+        }
+
+        .system-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+            color: #0d6efd; /* MODIFIED: Unified color */
+        }
+
 
         /* --- Search Box --- */
         .search-box {
@@ -81,7 +96,7 @@
             border-top: 1px solid #dee2e6;
             border-right: 1px solid #dee2e6;
             border-bottom: 1px solid #dee2e6;
-            border-left: 4px solid #17a2b8; /* MODIFIED: Bar now on the whole card */
+            border-left: 4px solid #17a2b8;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -99,7 +114,6 @@
             margin-bottom: 12px;
         }
         
-        /* (F) Document Type Tag */
         .doc-type {
             background-color: #e7f5ff;
             color: #1c7ed6;
@@ -110,7 +124,6 @@
             margin-right: 15px;
         }
         
-        /* (A) Title */
         .card-title a {
             text-decoration: none;
             color: #212529;
@@ -121,7 +134,6 @@
             color: #0d6efd;
         }
         
-        /* (B, C) Metadata: Author, Year */
         .metadata {
             font-size: 14px;
             color: #6c757d;
@@ -131,18 +143,16 @@
             font-weight: 500;
         }
         
-        /* (D) AI Summary */
         .summary {
             font-size: 15px;
             line-height: 1.6;
             color: #495057;
             margin-bottom: 20px;
-            padding: 15px; /* MODIFIED: Consistent padding */
+            padding: 15px;
             background-color: #f8f9fa;
-            border-radius: 8px; /* MODIFIED: Rounded corners */
+            border-radius: 8px;
         }
         
-        /* (E) Keywords */
         .keywords .keyword {
             background-color: #e9ecef;
             color: #495057;
@@ -157,33 +167,48 @@
         .sidebar-card {
             position: sticky;
             top: 20px;
+            /* MODIFIED: Removed gradient */
         }
         .sidebar-card h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 15px;
         }
         .chat-info {
             font-size: 14px;
             color: #6c757d;
-            background-color: #f1f3f5;
-            padding: 10px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            background-color: #f1f3f5; /* MODIFIED: Restored gray box */
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
         }
         .chat-button {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             font-size: 16px;
             font-weight: 700;
             color: #fff;
-            background-color: #0d6efd;
+            background-color: #0d6efd; /* MODIFIED: Unified color */
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
         }
         .chat-button:hover {
-            background-color: #0b5ed7;
+            transform: translateY(-2px);
+            background-color: #0b5ed7; /* MODIFIED: Darker shade for hover */
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+        }
+        .chat-button .icon {
+            width: 20px;
+            height: 20px;
         }
 
     </style>
@@ -193,7 +218,10 @@
     <div class="container">
         <!-- Main Content (Search Results) -->
         <main class="main-content">
-            <header>
+            <header class="system-header">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.953 11.953 0 0012 13.5c2.998 0 5.74 1.1 7.843 2.918m-15.686 0A8.959 8.959 0 003 12c0-.778.099-1.533.284-2.253m0 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
+                </svg>
                 <h1>Plastic AI Knowledge System</h1>
             </header>
             
@@ -365,7 +393,12 @@
                 <p class="chat-info">
                     Based on the 9 search results,<br>you can ask more in-depth questions.
                 </p>
-                <button class="chat-button">Start Chat with AI</button>
+                <button class="chat-button">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                    </svg>
+                    <span>Start Chat with AI</span>
+                </button>
             </div>
         </aside>
     </div>
