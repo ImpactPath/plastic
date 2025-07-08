@@ -14,7 +14,7 @@
             background-color: #f8f9fa;
             color: #212529;
             margin: 0;
-            padding: 20px;
+            /* The padding is removed from body and applied to overlay for full-screen modal on mobile */
         }
 
         /* --- Modal Overlay --- */
@@ -29,6 +29,8 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         /* --- Chat Modal --- */
@@ -41,6 +43,7 @@
             height: 80vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden; /* Prevent content from spilling out of rounded corners */
         }
         
         .chat-header {
@@ -49,6 +52,7 @@
             align-items: center;
             padding: 20px 25px;
             border-bottom: 1px solid #dee2e6;
+            flex-shrink: 0;
         }
         .chat-header h3 {
             font-size: 20px;
@@ -60,14 +64,13 @@
             font-size: 14px;
             color: #6c757d;
         }
-        /* MODIFIED: Styles for the link acting as a button */
         .close-btn {
             background: none;
             border: none;
             cursor: pointer;
             color: #6c757d;
             padding: 0; 
-            line-height: 0; /* Ensures icon is vertically centered */
+            line-height: 0;
         }
         .close-btn .icon {
             width: 28px;
@@ -172,6 +175,7 @@
         .chat-footer {
             padding: 20px 25px;
             border-top: 1px solid #dee2e6;
+            flex-shrink: 0;
         }
         .chat-input-area {
             position: relative;
@@ -199,6 +203,34 @@
             height: 28px;
         }
 
+        /* --- MODIFIED: Media Queries for Responsive Design --- */
+        @media (max-width: 768px) {
+            .modal-overlay {
+                padding: 0; /* Remove padding for full-screen modal */
+                align-items: flex-start; /* Align modal to the top */
+            }
+            .chat-modal {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+            .chat-header h3 {
+                font-size: 18px;
+            }
+            .chat-header .context-info {
+                display: none; /* Hide context info on small screens */
+            }
+            .chat-body {
+                padding: 15px;
+            }
+            .message-content {
+                padding: 12px;
+            }
+            .citation-item {
+                font-size: 14px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -210,7 +242,6 @@
                     <h3>Chat with AI</h3>
                     <span class="context-info">Based on 9 search results</span>
                 </div>
-                <!-- MODIFIED: Changed button to a link that navigates to screen1 -->
                 <a href="https://impactpath.github.io/plastic/screen1.html" class="close-btn" aria-label="Close">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                 </a>
