@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic AI Knowledge Playground - Chat</title>
+    <style>
+        /* Google Fonts: Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+        /* --- Basic Styles --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* --- Modal Overlay --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* --- Chat Modal --- */
+        .chat-modal {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .chat-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #343a40;
+            margin: 0;
+        }
+        .chat-header .context-info {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+        }
+        .close-btn .icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        /* --- Chat History Area --- */
+        .chat-body {
+            flex-grow: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 15px;
+            max-width: 85%;
+        }
+        .chat-message .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .chat-message .avatar .icon {
+            width: 24px;
+            height: 24px;
+            color: #495057;
+        }
+        
+        .chat-message.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+        .chat-message.user .message-content {
+            background-color: #0d6efd;
+            color: #ffffff;
+        }
+        .chat-message.ai .avatar {
+            background-color: #e7f5ff;
+        }
+        .chat-message.ai .avatar .icon {
+            color: #0d6efd;
+        }
+
+        .message-content {
+            background-color: #f1f3f5;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        
+        .message-content p, .message-content ul {
+            margin: 0;
+            line-height: 1.6;
+        }
+        .message-content ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        .message-content li {
+            margin-bottom: 5px;
+        }
+        
+        /* --- Citations --- */
+        .citations {
+            margin-top: 15px;
+            border-top: 1px solid #d0e8ff;
+            padding-top: 10px;
+        }
+        .citations strong {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .citation-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            color: #0d6efd;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        .citation-item:hover {
+            text-decoration: underline;
+        }
+        .citation-item .icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+        
+        /* --- Chat Input Area --- */
+        .chat-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #dee2e6;
+        }
+        .chat-input-area {
+            position: relative;
+        }
+        .chat-input {
+            width: 100%;
+            padding: 14px 50px 14px 14px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        .chat-send-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #0d6efd;
+        }
+        .chat-send-btn .icon {
+            width: 28px;
+            height: 28px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="modal-overlay">
+        <div class="chat-modal">
+            <header class="chat-header">
+                <div>
+                    <h3>Chat with AI</h3>
+                    <span class="context-info">Based on 9 search results</span>
+                </div>
+                <button class="close-btn" onclick="window.close()">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </header>
+            
+            <main class="chat-body">
+                <!-- User Message -->
+                <div class="chat-message user">
+                    <div class="avatar">
+                        <!-- MODIFIED: Reverted to SVG Icon -->
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                    </div>
+                    <div class="message-content">
+                        <p>Compare the policy recommendations from the OECD, UNEP, and Pew reports.</p>
+                    </div>
+                </div>
+
+                <!-- AI Message -->
+                <div class="chat-message ai">
+                    <div class="avatar">
+                        <!-- MODIFIED: Reverted to SVG Icon -->
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 21v-1.5M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" /></svg>
+                    </div>
+                    <div class="message-content">
+                        <p>Of course. Here is a more detailed comparison of the policy recommendations from the key reports:</p>
+                        <ul>
+                            <li><strong>OECD (2022):</strong> This report strongly advocates for market-based instruments to internalize the environmental cost of plastics. It recommends implementing plastics taxes, creating robust Extended Producer Responsibility (EPR) schemes, and promoting markets for recycled plastics.</li>
+                            <li><strong>Pew (2020):</strong> This report uses a detailed model to show there is no single solution. It emphasizes a portfolio of interventions, including significantly reducing plastic consumption, substituting with alternative materials, and massively scaling up recycling capacity and waste collection rates.</li>
+                            <li><strong>UNEP (2018):</strong> This report provides a practical roadmap for governments. It focuses on a phased approach, starting with baseline assessments, followed by considering policy actions from voluntary agreements to outright bans, all while emphasizing stakeholder engagement.</li>
+                        </ul>
+                        <div class="citations">
+                            <strong>Sources:</strong>
+                            <a href="https://www.oecd.org/en/publications/2022/06/global-plastics-outlook_f065ef59.html" class="citation-item" target="_blank" rel="noopener noreferrer">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                                <span>OECD: Global Plastics Outlook: Policy Scenarios to 2060 (2022)</span>
+                            </a>
+                             <a href="https://www.pew.org/en/research-and-analysis/articles/2020/07/23/breaking-the-plastic-wave-top-findings" class="citation-item" target="_blank" rel="noopener noreferrer">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                                <span>The Pew Charitable Trusts: Breaking the Plastic Wave (2020)</span>
+                            </a>
+                            <a href="https://www.unep.org/resources/report/single-use-plastics-roadmap-sustainability" class="citation-item" target="_blank" rel="noopener noreferrer">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                                <span>UNEP: Single-Use Plastics: A Roadmap for Sustainability (2018)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="chat-footer">
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" placeholder="Ask a follow-up question...">
+                    <button class="chat-send-btn">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                    </button>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+</body>
+</html>
