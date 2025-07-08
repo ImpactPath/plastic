@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plastic AI Knowledge Playground - Search</title>
+    <title>Plastic AI Knowledge System - Search</title>
     <style>
         /* Google Fonts: Inter */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
@@ -63,6 +63,11 @@
             font-size: 26px;
             font-weight: 700;
             margin: 0;
+        }
+        
+        /* MODIFIED: Style for the linked header */
+        .system-header h1 a {
+            text-decoration: none;
             color: #0d6efd; 
         }
 
@@ -221,7 +226,8 @@
                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.953 11.953 0 0012 13.5c2.998 0 5.74 1.1 7.843 2.918m-15.686 0A8.959 8.959 0 003 12c0-.778.099-1.533.284-2.253m0 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
                 </svg>
-                <h1>Plastic AI Knowledge Playground</h1>
+                <!-- MODIFIED: Changed text and added link -->
+                <h1><a href="https://impactpath.github.io/plastic/index.html">Plastic AI Knowledge Playground</a></h1>
             </header>
             
             <input type="text" class="search-box" value="microplastic pollution" placeholder="Enter a search term...">
@@ -233,7 +239,6 @@
                 <article class="result-card">
                     <div class="card-header">
                         <span class="doc-type">Report</span>
-                        <!-- MODIFIED: Added link to screen2.html -->
                         <h3 class="card-title"><a href="https://impactpath.github.io/plastic/screen2.html">Global Plastics Outlook: Policy Scenarios to 2060</a></h3>
                     </div>
                     <p class="metadata">
