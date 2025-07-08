@@ -6,7 +6,7 @@
     <title>Plastic AI Knowledge Playground - Search</title>
     <style>
         /* Google Fonts: Inter */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
 
         /* --- Basic Styles --- */
         body {
@@ -47,27 +47,32 @@
 
         /* --- Header --- */
         .system-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
             margin-bottom: 25px;
         }
 
-        .system-header .icon {
-            width: 40px;
-            height: 40px;
-            color: #0d6efd;
+        /* MODIFIED: Applied Grok/Perplexity style from landing page */
+        .headline {
+            font-size: 32px; /* Adjusted size for screen 1 */
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 0;
+            background: linear-gradient(90deg, #0d6efd, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            text-shadow: 0 0 30px rgba(13, 110, 253, 0.25), 0 0 40px rgba(236, 72, 153, 0.25);
+            animation: gradient-animation 10s ease infinite;
+            text-align: left; /* Align to the left */
         }
 
-        .system-header h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin: 0;
+        .headline a {
+            text-decoration: none;
         }
         
-        .system-header h1 a {
-            text-decoration: none;
-            color: #0d6efd; 
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
 
@@ -203,7 +208,7 @@
             justify-content: center;
             gap: 10px;
             box-shadow: 0 4px 15px rgba(13, 110, 253, 0.2);
-            text-decoration: none; /* Added for link */
+            text-decoration: none;
         }
         .chat-button:hover {
             transform: translateY(-2px);
@@ -223,10 +228,8 @@
         <!-- Main Content (Search Results) -->
         <main class="main-content">
             <header class="system-header">
-                <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A11.953 11.953 0 0012 13.5c2.998 0 5.74 1.1 7.843 2.918m-15.686 0A8.959 8.959 0 003 12c0-.778.099-1.533.284-2.253m0 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918" />
-                </svg>
-                <h1><a href="https://impactpath.github.io/plastic/index.html">Plastic AI Knowledge Playground</a></h1>
+                <!-- MODIFIED: Removed icon and applied new style to h1 -->
+                <h1 class="headline"><a href="https://impactpath.github.io/plastic/index.html">Plastic AI Knowledge Playground</a></h1>
             </header>
             
             <input type="text" class="search-box" value="microplastic pollution" placeholder="Enter a search term...">
@@ -390,7 +393,6 @@
                 <p class="chat-info">
                     Based on the 9 search results,<br>you can ask more in-depth questions.
                 </p>
-                <!-- MODIFIED: Changed button to a link that opens in a new tab -->
                 <a href="https://impactpath.github.io/plastic/screen3.html" target="_blank" rel="noopener noreferrer" class="chat-button">
                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
@@ -400,8 +402,6 @@
             </div>
         </aside>
     </div>
-
-    <!-- REMOVED: The script is no longer needed as we are using a standard link -->
 
 </body>
 </html>
