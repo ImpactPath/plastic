@@ -56,24 +56,19 @@
             margin-bottom: 20px;
         }
 
-        /* MODIFIED: Grok/Perplexity Style Headline */
         .headline {
             font-size: 56px;
             font-weight: 800;
             line-height: 1.2;
             margin: 0;
-            /* MODIFIED: Adjusted gradient to ensure magenta is prominent */
             background: linear-gradient(90deg, #0d6efd, #a855f7, #ec4899);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 200%;
-            /* MODIFIED: Adjusted glow effect to include magenta */
             text-shadow: 0 0 30px rgba(13, 110, 253, 0.25), 0 0 40px rgba(236, 72, 153, 0.25);
-            /* Animation for the gradient shift */
             animation: gradient-animation 10s ease infinite;
         }
 
-        /* Animation Keyframes */
         @keyframes gradient-animation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -84,17 +79,24 @@
             font-size: 18px;
             color: #495057;
             margin-bottom: 40px;
-            max-width: 650px;
+            max-width: 800px; /* MODIFIED: Adjusted max-width */
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
         }
-
+        
+        /* MODIFIED: Added style for the line break span */
+        .sub-headline-break {
+            display: block;
+            margin-top: 0.5em;
+        }
+        
         /* --- Search Bar --- */
         .search-container {
             position: relative;
             width: 100%;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            margin-top: 20px;
         }
 
         .main-search-bar {
@@ -139,26 +141,42 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            font-size: 14px;
-            color: #6c757d;
+            gap: 12px;
         }
 
         .trending-searches strong {
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 16px;
+            background: linear-gradient(90deg, #0d6efd, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .trending-tag {
-            background-color: #e9ecef;
-            color: #495057;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: #343a40;
+            font-weight: 500;
+            font-size: 14px;
             padding: 8px 14px;
-            border-radius: 8px;
+            border-radius: 20px;
             text-decoration: none;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(3px);
         }
         .trending-tag:hover {
-            background-color: #d0d4d7;
-            color: #212529;
+            background-color: #ffffff;
+            border-color: rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .trending-tag .icon {
+            width: 16px;
+            height: 16px;
+            color: #dc2626; /* Fire color */
         }
         
     </style>
@@ -172,7 +190,8 @@
             </div>
             
             <p class="sub-headline">
-                Search, analyze, and ask questions across hundreds of expert reports and research papers. Stop wasting time on manual insights hunting.
+                Search, analyze, and ask questions across hundreds of expert reports and research papers.
+                <span class="sub-headline-break">Stop wasting time on manual insights hunting.</span>
             </p>
 
             <div class="search-container">
@@ -186,10 +205,18 @@
 
             <div class="trending-searches">
                 <strong>Trending:</strong>
-                <!-- MODIFIED: Added links to all trending tags -->
-                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">Microplastic Pollution</a>
-                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">Bioplastics from Algae</a>
-                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">EPR Policy in Southeast Asia</a>
+                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071 1.052A9.75 9.75 0 0118.685 12H16.5a.75.75 0 000 1.5h2.185a9.75 9.75 0 01-5.722 8.662.75.75 0 10.57-1.18A8.25 8.25 0 0017.185 13.5H16.5a.75.75 0 000-1.5h.685a8.25 8.25 0 00-5.053-7.442.75.75 0 00-.57 1.18 6.75 6.75 0 014.13 6.262h-3.11a.75.75 0 000 1.5h3.11a6.75 6.75 0 01-4.13 6.262.75.75 0 10.57 1.18A8.25 8.25 0 0015.065 15h2.12a.75.75 0 000-1.5h-2.12a8.25 8.25 0 00-4.493-7.052.75.75 0 00-1.071-1.052A9.75 9.75 0 015.315 12H7.5a.75.75 0 000-1.5H5.315a9.75 9.75 0 015.722-8.662.75.75 0 10-.57-1.18A8.25 8.25 0 005.815 10.5H7.5a.75.75 0 000 1.5H5.815a8.25 8.25 0 005.053 7.442.75.75 0 00.57-1.18 6.75 6.75 0 01-4.13-6.262h3.11a.75.75 0 000-1.5H7.38a6.75 6.75 0 014.13-6.262.75.75 0 00.452-1.314Z" clip-rule="evenodd" /></svg>
+                    <span>Microplastic Pollution</span>
+                </a>
+                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071 1.052A9.75 9.75 0 0118.685 12H16.5a.75.75 0 000 1.5h2.185a9.75 9.75 0 01-5.722 8.662.75.75 0 10.57-1.18A8.25 8.25 0 0017.185 13.5H16.5a.75.75 0 000-1.5h.685a8.25 8.25 0 00-5.053-7.442.75.75 0 00-.57 1.18 6.75 6.75 0 014.13 6.262h-3.11a.75.75 0 000 1.5h3.11a6.75 6.75 0 01-4.13 6.262.75.75 0 10.57 1.18A8.25 8.25 0 0015.065 15h2.12a.75.75 0 000-1.5h-2.12a8.25 8.25 0 00-4.493-7.052.75.75 0 00-1.071-1.052A9.75 9.75 0 015.315 12H7.5a.75.75 0 000-1.5H5.315a9.75 9.75 0 015.722-8.662.75.75 0 10-.57-1.18A8.25 8.25 0 005.815 10.5H7.5a.75.75 0 000 1.5H5.815a8.25 8.25 0 005.053 7.442.75.75 0 00.57-1.18 6.75 6.75 0 01-4.13-6.262h3.11a.75.75 0 000-1.5H7.38a6.75 6.75 0 014.13-6.262.75.75 0 00.452-1.314Z" clip-rule="evenodd" /></svg>
+                    <span>Bioplastics from Algae</span>
+                </a>
+                <a href="https://impactpath.github.io/plastic/screen1.html" class="trending-tag">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071 1.052A9.75 9.75 0 0118.685 12H16.5a.75.75 0 000 1.5h2.185a9.75 9.75 0 01-5.722 8.662.75.75 0 10.57-1.18A8.25 8.25 0 0017.185 13.5H16.5a.75.75 0 000-1.5h.685a8.25 8.25 0 00-5.053-7.442.75.75 0 00-.57 1.18 6.75 6.75 0 014.13 6.262h-3.11a.75.75 0 000 1.5h3.11a6.75 6.75 0 01-4.13 6.262.75.75 0 10.57 1.18A8.25 8.25 0 0015.065 15h2.12a.75.75 0 000-1.5h-2.12a8.25 8.25 0 00-4.493-7.052.75.75 0 00-1.071-1.052A9.75 9.75 0 015.315 12H7.5a.75.75 0 000-1.5H5.315a9.75 9.75 0 015.722-8.662.75.75 0 10-.57-1.18A8.25 8.25 0 005.815 10.5H7.5a.75.75 0 000 1.5H5.815a8.25 8.25 0 005.053 7.442.75.75 0 00.57-1.18 6.75 6.75 0 01-4.13-6.262h3.11a.75.75 0 000-1.5H7.38a6.75 6.75 0 014.13-6.262.75.75 0 00.452-1.314Z" clip-rule="evenodd" /></svg>
+                    <span>EPR Policy in Southeast Asia</span>
+                </a>
             </div>
         </div>
     </div>
