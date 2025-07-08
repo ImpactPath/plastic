@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plastic AI Knowledge System</title>
+    <title>Plastic AI Knowledge Playground</title>
     <style>
         /* Google Fonts: Inter */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
@@ -20,11 +20,11 @@
         .hero-section {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; 
             align-items: center;
             text-align: center;
             height: 100%;
-            padding: 20px;
+            padding: 20vh 20px 0 20px; 
             box-sizing: border-box;
             position: relative;
             background-color: #f8f9fa;
@@ -51,13 +51,33 @@
             max-width: 800px;
         }
 
-        /* --- Headlines --- */
+        /* --- Headline Container --- */
+        .headline-container {
+            margin-bottom: 20px;
+        }
+
+        /* MODIFIED: Grok/Perplexity Style Headline */
         .headline {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 800;
-            color: #212529;
-            margin-bottom: 15px;
             line-height: 1.2;
+            margin: 0;
+            /* MODIFIED: Adjusted gradient to ensure magenta is prominent */
+            background: linear-gradient(90deg, #0d6efd, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            /* MODIFIED: Adjusted glow effect to include magenta */
+            text-shadow: 0 0 30px rgba(13, 110, 253, 0.25), 0 0 40px rgba(236, 72, 153, 0.25);
+            /* Animation for the gradient shift */
+            animation: gradient-animation 10s ease infinite;
+        }
+
+        /* Animation Keyframes */
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .sub-headline {
@@ -106,7 +126,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none; /* Added for link */
+            text-decoration: none;
         }
         .search-button .icon {
             width: 24px;
@@ -147,7 +167,10 @@
 
     <div class="hero-section">
         <div class="hero-content">
-            <h1 class="headline">The Fastest Way to Find Insights in Plastic Actions</h1>
+            <div class="headline-container">
+                <h1 class="headline">Plastic AI Knowledge Playground</h1>
+            </div>
+            
             <p class="sub-headline">
                 Search, analyze, and ask questions across hundreds of expert reports and research papers. Stop wasting time on manual insights hunting.
             </p>
