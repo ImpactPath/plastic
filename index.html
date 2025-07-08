@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic AI Knowledge System</title>
+    <style>
+        /* Google Fonts: Inter */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+        /* --- Basic Styles --- */
+        body, html {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* --- Hero Section Layout --- */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            background-color: #f8f9fa;
+        }
+        
+        /* --- Background Visual --- */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        /* --- Headlines --- */
+        .headline {
+            font-size: 48px;
+            font-weight: 800;
+            color: #212529;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .sub-headline {
+            font-size: 18px;
+            color: #495057;
+            margin-bottom: 40px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* --- Search Bar --- */
+        .search-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .main-search-bar {
+            width: 100%;
+            padding: 20px 60px 20px 25px;
+            font-size: 18px;
+            border: 1px solid #ced4da;
+            border-radius: 12px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        .main-search-bar:focus {
+            outline: none;
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #0d6efd;
+            border: none;
+            border-radius: 8px;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .search-button .icon {
+            width: 24px;
+            height: 24px;
+            color: #ffffff;
+        }
+        
+        /* --- Trending Searches --- */
+        .trending-searches {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .trending-searches strong {
+            font-weight: 500;
+        }
+        
+        .trending-tag {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .trending-tag:hover {
+            background-color: #d0d4d7;
+            color: #212529;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="headline">The Fastest Way to Find Insights in Plastic Actions</h1>
+            <p class="sub-headline">
+                Search, analyze, and ask questions across hundreds of expert reports and research papers. Stop wasting time on manual insights hunting.
+            </p>
+
+            <div class="search-container">
+                <input type="text" class="main-search-bar" placeholder="Ask anything about plastics">
+                <button class="search-button" aria-label="Search">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="trending-searches">
+                <strong>Trending:</strong>
+                <a href="#" class="trending-tag">Bioplastics from Algae</a>
+                <a href="#" class="trending-tag">EPR Policy in Southeast Asia</a>
+                <a href="#" class="trending-tag">Microplastics in Bottled Water</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
