@@ -97,7 +97,7 @@
     <header class="text-blue-900 text-center py-8 md:py-12 px-4 relative">
         <h1 class="text-4xl md:text-6xl font-black mb-8 flex items-center justify-center gap-x-4">
             <span class="headline-gradient">PLASTIC CHALLENGE</span>
-            <span>🌎</span>
+            <span>🌏</span>
         </h1>
         <p class="text-lg md:text-2xl font-bold max-w-3xl mx-auto animate-fade-in-up">Content Ideas to Change the World, Starting Right Here! 🚀</p>
         <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
@@ -109,7 +109,7 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <!-- View Toggle Button -->
-        <div class="flex justify-end mb-8 -mt-4">
+        <div id="toggle-container" class="flex justify-end mb-8 -mt-4">
             <button id="view-toggle" class="bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition">
                 <!-- Icons will be injected by JS -->
             </button>
@@ -286,6 +286,7 @@
             isCardView = !isCardView;
             updateViewVisibility();
             updateButtonIcon();
+            updateTogglePosition();
         }
         
         function updateViewVisibility() {
@@ -304,6 +305,17 @@
 
         function updateButtonIcon() {
             toggleBtn.innerHTML = isCardView ? listIcon : gridIcon;
+        }
+
+        function updateTogglePosition() {
+            const toggleContainer = document.getElementById('toggle-container');
+            if (isCardView) {
+                // For card view, align to the edge of the main container
+                toggleContainer.classList.remove('max-w-4xl', 'mx-auto');
+            } else {
+                // For blog view, align to the edge of the content box
+                toggleContainer.classList.add('max-w-4xl', 'mx-auto');
+            }
         }
 
         function setupObserver() {
@@ -325,8 +337,9 @@
         // Initial setup
         toggleBtn.addEventListener('click', toggleView);
         renderContent();
-        updateViewVisibility(); // Set initial view based on isCardView
+        updateViewVisibility();
         updateButtonIcon();
+        updateTogglePosition();
 
     </script>
 
